@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Complaint Submitted - Sauti ya Wananchi{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="bg-white rounded-xl shadow-sm p-8 border border-gray-100 text-center">
+        <div class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </div>
+
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Complaint Submitted!</h1>
+        <p class="text-gray-600 mb-6">
+            Thank you for raising your voice. Your complaint will be processed and added to the public dashboard.
+        </p>
+
+        {% if points %}
+            <div class="bg-green-50 rounded-lg p-4 mb-6">
+                <p class="text-green-700 font-medium">
+                    +1 Accountability Point
+                </p>
+                <p class="text-green-600 text-sm">
+                    Total: {{ points }} points
+                </p>
+            </div>
+        {% endif %}
+
+        {% if complaint %}
+            <div class="text-left bg-gray-50 rounded-lg p-4 mb-6">
+                <p class="text-sm text-gray-500 mb-1">Complaint ID</p>
+                <p class="font-mono text-xs text-gray-700 break-all">{{ complaint.id }}</p>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <a href="{% url 'complaints:detail' complaint.pk %}"
+                   class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition">
+                    View Complaint
+                </a>
+                <a href="{% url 'complaints:card' complaint.pk %}"
+                   class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium transition">
+                    Share Card
+                </a>
+            </div>
+        {% endif %}
+
+        <div class="mt-6 pt-6 border-t border-gray-200">
+            <a href="{% url 'dashboard:home' %}" class="text-green-600 hover:text-green-700 text-sm font-medium">
+                View Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}Complaint Details - Sauti ya Wananchi{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <!-- Header -->
+        <div class="bg-gray-50 px-6 py-4 border-b border-gray-100">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+                        {% if complaint.category == 'corruption' %}bg-red-100 text-red-800
+                        {% elif complaint.category == 'bribery' %}bg-orange-100 text-orange-800
+                        {% elif complaint.category == 'delay' %}bg-yellow-100 text-yellow-800
+                        {% elif complaint.category == 'misconduct' %}bg-purple-100 text-purple-800
+                        {% else %}bg-gray-100 text-gray-800{% endif %}">
+                        {{ complaint.get_category_display }}
+                    </span>
+                </div>
+                <span class="inline-flex items-center px-3 py-1 rounded text-sm font-medium
+                    {% if complaint.urgency == 'critical' %}bg-red-600 text-white
+                    {% elif complaint.urgency == 'high' %}bg-orange-500 text-white
+                    {% elif complaint.urgency == 'medium' %}bg-yellow-500 text-white
+                    {% else %}bg-gray-400 text-white{% endif %}">
+                    {{ complaint.get_urgency_display }} Priority
+                </span>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+            {% if complaint.summary %}
+                <div class="mb-6">
+                    <h2 class="text-sm font-medium text-gray-500 mb-2">Summary</h2>
+                    <p class="text-lg text-gray-900">{{ complaint.summary }}</p>
+                </div>
+            {% endif %}
+
+            <div class="mb-6">
+                <h2 class="text-sm font-medium text-gray-500 mb-2">Full Complaint</h2>
+                <p class="text-gray-700 whitespace-pre-wrap">{{ complaint.raw_text }}</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div>
+                    <h2 class="text-sm font-medium text-gray-500 mb-1">County</h2>
+                    <p class="text-gray-900">{{ complaint.county|title }}</p>
+                </div>
+                <div>
+                    <h2 class="text-sm font-medium text-gray-500 mb-1">Submitted</h2>
+                    <p class="text-gray-900">{{ complaint.created_at|date:"M d, Y H:i" }}</p>
+                </div>
+            </div>
+
+            {% if complaint.officer_name or complaint.department_name %}
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    {% if complaint.officer_name %}
+                        <div>
+                            <h2 class="text-sm font-medium text-gray-500 mb-1">Officer</h2>
+                            <p class="text-gray-900">{{ complaint.officer_name }}</p>
+                        </div>
+                    {% endif %}
+                    {% if complaint.department_name %}
+                        <div>
+                            <h2 class="text-sm font-medium text-gray-500 mb-1">Department</h2>
+                            <p class="text-gray-900">{{ complaint.department_name }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if complaint.audio_file %}
+                <div class="mb-6">
+                    <h2 class="text-sm font-medium text-gray-500 mb-2">Audio Recording</h2>
+                    <audio controls class="w-full">
+                        <source src="{{ complaint.audio_file.url }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            {% endif %}
+
+            {% if complaint.image_file %}
+                <div class="mb-6">
+                    <h2 class="text-sm font-medium text-gray-500 mb-2">Evidence Image</h2>
+                    <img src="{{ complaint.image_file.url }}"
+                         alt="Evidence"
+                         class="rounded-lg max-w-full h-auto">
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-gray-50 px-6 py-4 border-t border-gray-100 flex justify-between items-center">
+            <a href="{% url 'dashboard:home' %}" class="text-gray-600 hover:text-gray-800 text-sm">
+                &larr; Back to Dashboard
+            </a>
+            <a href="{% url 'complaints:card' complaint.pk %}"
+               class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                Share This Complaint
+            </a>
+        </div>
+    </div>
+
+    <!-- Complaint ID -->
+    <div class="mt-4 text-center">
+        <p class="text-xs text-gray-400">
+            ID: <span class="font-mono">{{ complaint.id }}</span>
+        </p>
+    </div>
+</div>
+{% endblock %}
