@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile - Sauti ya Wananchi{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Page Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">My Profile</h1>
+        <p class="mt-2 text-gray-600">Manage your account settings and preferences</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Profile Summary Card -->
+        <div class="md:col-span-1">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold text-blue-600">
+                            {{ user.username.0|upper }}
+                        </span>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900">{{ user.username }}</h3>
+                    <p class="text-sm text-gray-500">{{ user.email }}</p>
+                    {% if user.county %}
+                    <p class="text-sm text-gray-500 mt-1">{{ user.county }}</p>
+                    {% endif %}
+                </div>
+
+                <!-- Stats -->
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-sm text-gray-600">Accountability Points</span>
+                        <span class="font-semibold text-blue-600">{{ user.accountability_points }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Member Since</span>
+                        <span class="text-sm text-gray-900">{{ user.date_joined|date:"M Y" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Form -->
+        <div class="md:col-span-2">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-6">Edit Profile</h2>
+
+                {% if messages %}
+                {% for message in messages %}
+                <div class="mb-4 p-4 rounded-lg {% if message.tags == 'success' %}bg-blue-50 text-blue-700{% else %}bg-red-50 text-red-700{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <form method="post" class="space-y-5">
+                    {% csrf_token %}
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <!-- First Name -->
+                        <div>
+                            <label for="id_first_name" class="block text-sm font-medium text-gray-700 mb-2">
+                                First Name
+                            </label>
+                            {{ form.first_name }}
+                        </div>
+
+                        <!-- Last Name -->
+                        <div>
+                            <label for="id_last_name" class="block text-sm font-medium text-gray-700 mb-2">
+                                Last Name
+                            </label>
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="id_email" class="block text-sm font-medium text-gray-700 mb-2">
+                            Email Address
+                        </label>
+                        {{ form.email }}
+                    </div>
+
+                    <!-- County -->
+                    <div>
+                        <label for="id_county" class="block text-sm font-medium text-gray-700 mb-2">
+                            County
+                        </label>
+                        {{ form.county }}
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div>
+                        <label for="id_phone_number" class="block text-sm font-medium text-gray-700 mb-2">
+                            Phone Number
+                        </label>
+                        {{ form.phone_number }}
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="flex items-center">
+                        {{ form.receive_notifications }}
+                        <label for="id_receive_notifications" class="ml-2 text-sm text-gray-700">
+                            Receive email notifications about my complaints
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-4">
+                        <button type="submit"
+                                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200">
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

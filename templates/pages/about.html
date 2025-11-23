@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - Sauti ya Wananchi{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="bg-gradient-to-br from-blue-700 to-blue-800 text-white py-16 md:py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">About Sauti ya Wananchi</h1>
+        <p class="text-xl text-blue-100">
+            Empowering Kenyan citizens to report corruption and service failures
+            through technology and collective action.
+        </p>
+    </div>
+</section>
+
+<!-- Mission & Vision -->
+<section class="py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Mission -->
+            <div class="bg-white rounded-xl shadow-sm p-8">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Mission</h2>
+                <p class="text-gray-600 leading-relaxed">
+                    To create a transparent and accountable public service system in Kenya by providing
+                    citizens with a safe, accessible platform to report corruption, inefficiency, and
+                    misconduct in government offices.
+                </p>
+            </div>
+
+            <!-- Vision -->
+            <div class="bg-white rounded-xl shadow-sm p-8">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Vision</h2>
+                <p class="text-gray-600 leading-relaxed">
+                    A Kenya where public services work for everyone, where corruption is exposed
+                    and eliminated, and where every citizen's voice contributes to building
+                    a just and equitable society.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works (Detailed) -->
+<section class="bg-gray-50 py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How Our Platform Works</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                We use artificial intelligence to process and organize citizen reports,
+                making them actionable and accessible.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Step 1 -->
+            <div class="bg-white rounded-xl p-8 shadow-sm">
+                <div class="flex items-start">
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-white font-bold">1</span>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Submit Your Report</h3>
+                        <p class="text-gray-600">
+                            Citizens can submit reports via text, voice recordings (up to 60 seconds),
+                            or images. Reports can be submitted anonymously if preferred.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="bg-white rounded-xl p-8 shadow-sm">
+                <div class="flex items-start">
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-white font-bold">2</span>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">AI Transcription</h3>
+                        <p class="text-gray-600">
+                            Voice recordings are automatically transcribed using OpenAI Whisper,
+                            supporting both English and Swahili languages.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="bg-white rounded-xl p-8 shadow-sm">
+                <div class="flex items-start">
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-white font-bold">3</span>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Smart Categorization</h3>
+                        <p class="text-gray-600">
+                            Claude AI analyzes each report to extract the category, county, urgency level,
+                            involved parties, and generates a clear summary.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="bg-white rounded-xl p-8 shadow-sm">
+                <div class="flex items-start">
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span class="text-white font-bold">4</span>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Public Dashboard</h3>
+                        <p class="text-gray-600">
+                            Processed reports appear on our public dashboard with analytics, filters,
+                            and visualizations to identify patterns and hotspots.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Impact Stats -->
+<section class="py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Impact</h2>
+            <p class="text-lg text-gray-600">Growing every day with citizen participation</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="text-center">
+                <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">{{ total_complaints|default:"0" }}+</div>
+                <div class="text-gray-600">Total Reports</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">47</div>
+                <div class="text-gray-600">Counties</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">7</div>
+                <div class="text-gray-600">Categories</div>
+            </div>
+            <div class="text-center">
+                <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">24/7</div>
+                <div class="text-gray-600">Availability</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values -->
+<section class="bg-gray-50 py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Values</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Transparency</h3>
+                <p class="text-gray-600">
+                    All reports are publicly visible, creating accountability through openness.
+                </p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Citizen-Centered</h3>
+                <p class="text-gray-600">
+                    Built by citizens, for citizens. Your needs drive our development.
+                </p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">Privacy</h3>
+                <p class="text-gray-600">
+                    Submit reports anonymously. We protect your identity while amplifying your voice.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-blue-700 text-white py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-4">Join the Movement</h2>
+        <p class="text-lg text-blue-100 mb-8">
+            Every report brings Kenya one step closer to accountability and good governance.
+        </p>
+        {% if user.is_authenticated %}
+        <a href="{% url 'complaints:submit' %}"
+           class="bg-white text-blue-700 hover:bg-blue-50 font-semibold px-8 py-4 rounded-lg text-lg transition inline-block">
+            Submit Your First Report
+        </a>
+        {% else %}
+        <a href="{% url 'accounts:register' %}"
+           class="bg-white text-blue-700 hover:bg-blue-50 font-semibold px-8 py-4 rounded-lg text-lg transition inline-block">
+            Create an Account
+        </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
