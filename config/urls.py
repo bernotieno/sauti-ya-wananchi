@@ -10,11 +10,25 @@ from django.http import JsonResponse
 
 def health_check(request):
     """Health check endpoint for Railway and monitoring."""
-    return JsonResponse({
+    import os
+    from django.db import connection
+
+    status_data = {
         'status': 'healthy',
         'service': 'Sauti ya Wananchi',
-        'version': '1.0.0'
-    })
+        'version': '1.0.0',
+        'environment': os.getenv('RAILWAY_ENVIRONMENT', 'unknown'),
+    }
+
+    # Try database connection
+    try:
+        connection.ensure_connection()
+        status_data['database'] = 'connected'
+    except Exception as e:
+        status_data['database'] = f'error: {str(e)}'
+        status_data['status'] = 'unhealthy'
+
+    return JsonResponse(status_data)
 
 urlpatterns = [
     path('health/', health_check, name='health_check'),  # Health check for Railway
