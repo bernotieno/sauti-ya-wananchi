@@ -20,6 +20,33 @@ DEBUG = os.getenv('DEBUG', 'True').lower() in ('true', '1', 'yes')
 ALLOWED_HOSTS_STR = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1')
 ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS_STR.split(',') if host.strip()]
 
+# Auto-detect Railway environment and add Railway domains
+RAILWAY_STATIC_URL = os.getenv('RAILWAY_STATIC_URL', '')
+RAILWAY_PUBLIC_DOMAIN = os.getenv('RAILWAY_PUBLIC_DOMAIN', '')
+
+if RAILWAY_STATIC_URL:
+    # Extract domain from Railway static URL
+    import re
+    match = re.search(r'https?://([^/]+)', RAILWAY_STATIC_URL)
+    if match:
+        railway_domain = match.group(1)
+        if railway_domain not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(railway_domain)
+
+if RAILWAY_PUBLIC_DOMAIN and RAILWAY_PUBLIC_DOMAIN not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append(RAILWAY_PUBLIC_DOMAIN)
+
+# Add Railway internal domains
+if os.getenv('RAILWAY_ENVIRONMENT'):
+    railway_domains = [
+        '.railway.app',
+        '.railway.internal',
+        'railway.app',
+    ]
+    for domain in railway_domains:
+        if domain not in ALLOWED_HOSTS:
+            ALLOWED_HOSTS.append(domain)
+
 # Production security settings
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
@@ -174,6 +201,19 @@ if CSRF_TRUSTED_ORIGINS_STR:
     CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in CSRF_TRUSTED_ORIGINS_STR.split(',') if origin.strip()]
 else:
     CSRF_TRUSTED_ORIGINS = []
+
+# Auto-add Railway URLs to CSRF trusted origins
+if RAILWAY_STATIC_URL and RAILWAY_STATIC_URL not in CSRF_TRUSTED_ORIGINS:
+    # Ensure it starts with https://
+    if not RAILWAY_STATIC_URL.startswith('http'):
+        CSRF_TRUSTED_ORIGINS.append(f'https://{RAILWAY_STATIC_URL}')
+    else:
+        CSRF_TRUSTED_ORIGINS.append(RAILWAY_STATIC_URL)
+
+if RAILWAY_PUBLIC_DOMAIN:
+    railway_https = f'https://{RAILWAY_PUBLIC_DOMAIN}'
+    if railway_https not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(railway_https)
 
 # REST Framework settings
 REST_FRAMEWORK = {
