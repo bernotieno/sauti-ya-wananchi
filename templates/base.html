@@ -99,6 +99,10 @@
                            class="text-gray-600 hover:text-blue-700 px-3 py-2 text-sm font-medium">
                             Login
                         </a>
+                        <a href="{% url 'complaints:submit_anonymous' %}"
+                           class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
+                            Report Anonymously
+                        </a>
                         <a href="{% url 'accounts:register' %}"
                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition">
                             Register
@@ -139,6 +143,7 @@
                     <a href="{% url 'complaints:submit' %}" class="block px-3 py-2 bg-blue-600 text-white text-center rounded-md mt-2">Report Issue</a>
                 {% else %}
                     <a href="{% url 'accounts:login' %}" class="block px-3 py-2 text-gray-600 hover:text-blue-700 hover:bg-blue-50 rounded-md">Login</a>
+                    <a href="{% url 'complaints:submit_anonymous' %}" class="block px-3 py-2 bg-purple-600 text-white text-center rounded-md mt-2">Report Anonymously</a>
                     <a href="{% url 'accounts:register' %}" class="block px-3 py-2 bg-blue-600 text-white text-center rounded-md mt-2">Register</a>
                 {% endif %}
             </div>
@@ -234,6 +239,12 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="{% url 'complaints:submit_anonymous' %}" class="text-gray-400 hover:text-white transition flex items-center group">
+                                        <span class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition"></span>
+                                        Anonymous Report
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="{% url 'citizen:dashboard' %}" class="text-gray-400 hover:text-white transition flex items-center group">
                                         <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition"></span>
                                         My Dashboard
@@ -246,6 +257,12 @@
                                     </a>
                                 </li>
                                 {% else %}
+                                <li>
+                                    <a href="{% url 'complaints:submit_anonymous' %}" class="text-gray-400 hover:text-white transition flex items-center group">
+                                        <span class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition"></span>
+                                        Anonymous Report
+                                    </a>
+                                </li>
                                 <li>
                                     <a href="{% url 'accounts:register' %}" class="text-gray-400 hover:text-white transition flex items-center group">
                                         <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition"></span>

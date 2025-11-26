@@ -1,0 +1,149 @@
+{% extends 'dashboard_base.html' %}
+
+{% block title %}My Complaints - Sauti ya Wananchi{% endblock %}
+
+{% block page_title %}My Complaints{% endblock %}
+
+{% block content %}
+<div class="mb-6 flex justify-between items-center">
+    <div>
+        <p class="text-gray-600">All your submitted reports</p>
+        <p class="text-sm text-gray-500">Total: {{ total_count }} complaint{{ total_count|pluralize }}</p>
+    </div>
+    <a href="{% url 'complaints:submit' %}"
+       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition">
+        + New Report
+    </a>
+</div>
+
+{% if complaints %}
+    <div class="space-y-4">
+        {% for complaint in complaints %}
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+            <div class="p-6">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium
+                                {% if complaint.category == 'corruption' %}bg-red-100 text-red-700
+                                {% elif complaint.category == 'bribery' %}bg-orange-100 text-orange-700
+                                {% elif complaint.category == 'delay' %}bg-yellow-100 text-yellow-700
+                                {% elif complaint.category == 'misconduct' %}bg-purple-100 text-purple-700
+                                {% else %}bg-gray-100 text-gray-700{% endif %}">
+                                {{ complaint.get_category_display }}
+                            </span>
+                            <span class="text-sm text-gray-500">{{ complaint.county }}</span>
+                            {% if complaint.is_anonymous %}
+                            <span class="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs font-medium rounded-full">
+                                Anonymous
+                            </span>
+                            {% endif %}
+                        </div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">
+                            {% if complaint.summary %}
+                                {{ complaint.summary|truncatechars:100 }}
+                            {% else %}
+                                {{ complaint.raw_text|truncatechars:100 }}
+                            {% endif %}
+                        </h3>
+                        <p class="text-gray-600 text-sm line-clamp-2">
+                            {{ complaint.raw_text|truncatechars:200 }}
+                        </p>
+                    </div>
+                    <div class="ml-4 flex flex-col items-end">
+                        <span class="px-2 py-1 rounded text-xs font-medium mb-2
+                            {% if complaint.urgency == 'critical' %}bg-red-100 text-red-700
+                            {% elif complaint.urgency == 'high' %}bg-orange-100 text-orange-700
+                            {% elif complaint.urgency == 'medium' %}bg-yellow-100 text-yellow-700
+                            {% else %}bg-gray-100 text-gray-700{% endif %}">
+                            {{ complaint.get_urgency_display }}
+                        </span>
+                        {% if complaint.has_media %}
+                        <div class="flex items-center text-xs text-gray-500">
+                            {% if complaint.audio_file %}
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                            </svg>
+                            {% endif %}
+                            {% if complaint.image_file %}
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                    <div class="flex items-center gap-4 text-xs text-gray-500">
+                        <span>{{ complaint.created_at|date:"M d, Y H:i" }}</span>
+                        {% if complaint.ai_processed %}
+                        <span class="text-green-600 flex items-center">
+                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Processed
+                        </span>
+                        {% else %}
+                        <span class="text-yellow-600 flex items-center">
+                            <svg class="w-3 h-3 mr-1 animate-spin" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="m4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Processing...
+                        </span>
+                        {% endif %}
+                        {% if complaint.is_verified %}
+                        <span class="text-blue-600 flex items-center">
+                            <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Verified
+                        </span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="flex items-center gap-2">
+                        <a href="{% url 'complaints:detail' complaint.pk %}"
+                           class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                            View Details
+                        </a>
+                        <span class="text-gray-300">|</span>
+                        <a href="{% url 'complaints:card' complaint.pk %}"
+                           class="text-green-600 hover:text-green-700 text-sm font-medium">
+                            Share
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination would go here if needed -->
+    {% if complaints.count > 10 %}
+    <div class="mt-8 text-center">
+        <p class="text-sm text-gray-500">Showing all {{ total_count }} complaints</p>
+    </div>
+    {% endif %}
+
+{% else %}
+    <div class="text-center py-12">
+        <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+        </div>
+        <h3 class="text-lg font-medium text-gray-900 mb-2">No complaints yet</h3>
+        <p class="text-gray-500 mb-6">You haven't submitted any reports yet. Start making a difference by reporting issues in your community.</p>
+        <a href="{% url 'complaints:submit' %}"
+           class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            Submit Your First Report
+        </a>
+    </div>
+{% endif %}
+{% endblock %}

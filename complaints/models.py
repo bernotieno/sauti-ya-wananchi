@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.conf import settings
 
 
 class Complaint(models.Model):
@@ -26,6 +27,18 @@ class Complaint(models.Model):
 
     # Primary fields
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='complaints',
+        help_text="User who submitted (null if anonymous)"
+    )
+    is_anonymous = models.BooleanField(
+        default=False,
+        help_text="Whether this complaint was submitted anonymously"
+    )
     raw_text = models.TextField(
         help_text="Original complaint text or audio transcript"
     )

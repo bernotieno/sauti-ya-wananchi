@@ -1,11 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
 
 {% block title %}Report Issue - Sauti ya Wananchi{% endblock %}
 
+{% block page_title %}New Report{% endblock %}
+
 {% block content %}
-<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="max-w-2xl mx-auto">
     <div class="bg-white rounded-xl shadow-sm p-8 border border-gray-100">
-        <h1 class="text-2xl font-bold text-gray-900 mb-2">Report an Issue</h1>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Report an Issue</h2>
         <p class="text-gray-600 mb-6">Your voice matters. Report corruption, delays, or service failures.</p>
 
         <form method="post" enctype="multipart/form-data" class="space-y-6">
@@ -33,6 +35,18 @@
                 {% endif %}
             </div>
 
+            <!-- Urgency -->
+            <div>
+                <label for="id_urgency" class="block text-sm font-medium text-gray-700 mb-2">
+                    Urgency Level <span class="text-red-500">*</span>
+                </label>
+                {{ form.urgency }}
+                {% if form.urgency.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.urgency.errors.0 }}</p>
+                {% endif %}
+                <p class="mt-1 text-xs text-gray-500">How urgent is this issue?</p>
+            </div>
+
             <!-- Complaint Text -->
             <div>
                 <label for="id_raw_text" class="block text-sm font-medium text-gray-700 mb-2">
@@ -45,18 +59,43 @@
                 <p class="mt-1 text-xs text-gray-500">You can write in English or Swahili</p>
             </div>
 
-            <!-- Audio Upload -->
+            <!-- Audio Recording/Upload -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">
                     Voice Recording (Optional)
                 </label>
+                
+                <!-- Recording Controls -->
+                <div class="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div class="flex items-center space-x-4 mb-3">
+                        <button type="button" id="record-btn" 
+                                class="flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition disabled:opacity-50">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"/>
+                            </svg>
+                            <span id="record-text">Start Recording</span>
+                        </button>
+                        <button type="button" id="stop-btn" 
+                                class="flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition disabled:opacity-50" disabled>
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd"/>
+                            </svg>
+                            Stop
+                        </button>
+                        <span id="recording-time" class="text-sm text-gray-600">00:00</span>
+                    </div>
+                    <div id="recording-status" class="text-sm text-gray-600 mb-2"></div>
+                    <audio id="audio-playback" controls class="w-full hidden"></audio>
+                </div>
+
+                <!-- File Upload Option -->
                 <div class="flex items-center space-x-4">
                     <label for="audio-upload"
                            class="flex items-center px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 transition">
                         <svg class="w-5 h-5 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                         </svg>
-                        <span class="text-sm text-gray-600">Upload Audio</span>
+                        <span class="text-sm text-gray-600">Or Upload Audio File</span>
                     </label>
                     {{ form.audio_file }}
                     <span id="audio-filename" class="text-sm text-gray-500"></span>
@@ -64,7 +103,7 @@
                 {% if form.audio_file.errors %}
                     <p class="mt-1 text-sm text-red-600">{{ form.audio_file.errors.0 }}</p>
                 {% endif %}
-                <p class="mt-1 text-xs text-gray-500">Max 60 seconds, MP3/WAV/OGG format</p>
+                <p class="mt-1 text-xs text-gray-500">Record directly or upload file (Max 60 seconds, MP3/WAV/OGG format)</p>
             </div>
 
             <!-- Image Upload -->
@@ -109,6 +148,22 @@
                 </div>
             </div>
 
+            <!-- Anonymous Submission -->
+            <div class="pt-4 border-t border-gray-200">
+                <div class="flex items-center">
+                    {{ form.is_anonymous }}
+                    <label for="id_is_anonymous" class="ml-2 text-sm text-gray-700">
+                        {{ form.is_anonymous.label }}
+                    </label>
+                </div>
+                {% if form.is_anonymous.help_text %}
+                    <p class="mt-1 text-xs text-gray-500">{{ form.is_anonymous.help_text }}</p>
+                {% endif %}
+                {% if form.is_anonymous.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.is_anonymous.errors.0 }}</p>
+                {% endif %}
+            </div>
+
             <!-- Submit -->
             <div class="pt-4">
                 <button type="submit"
@@ -123,15 +178,112 @@
 
 {% block extra_js %}
 <script>
+    let mediaRecorder;
+    let audioChunks = [];
+    let recordingTimer;
+    let recordingSeconds = 0;
+    let recordedBlob = null;
+
     // Show filename when file is selected
     document.getElementById('audio-upload').addEventListener('change', function(e) {
         const filename = e.target.files[0]?.name || '';
         document.getElementById('audio-filename').textContent = filename;
+        // Clear recorded audio if file is uploaded
+        if (filename) {
+            recordedBlob = null;
+            document.getElementById('audio-playback').classList.add('hidden');
+        }
     });
 
     document.getElementById('image-upload').addEventListener('change', function(e) {
         const filename = e.target.files[0]?.name || '';
         document.getElementById('image-filename').textContent = filename;
+    });
+
+    // Audio recording functionality
+    const recordBtn = document.getElementById('record-btn');
+    const stopBtn = document.getElementById('stop-btn');
+    const recordingTime = document.getElementById('recording-time');
+    const recordingStatus = document.getElementById('recording-status');
+    const audioPlayback = document.getElementById('audio-playback');
+
+    recordBtn.addEventListener('click', startRecording);
+    stopBtn.addEventListener('click', stopRecording);
+
+    async function startRecording() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = [];
+            recordingSeconds = 0;
+
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
+            };
+
+            mediaRecorder.onstop = () => {
+                recordedBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(recordedBlob);
+                audioPlayback.src = audioUrl;
+                audioPlayback.classList.remove('hidden');
+                recordingStatus.textContent = 'Recording completed. You can play it back above.';
+                
+                // Clear file input since we have a recording
+                document.getElementById('audio-upload').value = '';
+                document.getElementById('audio-filename').textContent = '';
+            };
+
+            mediaRecorder.start();
+            recordBtn.disabled = true;
+            stopBtn.disabled = false;
+            recordBtn.querySelector('#record-text').textContent = 'Recording...';
+            recordingStatus.textContent = 'Recording in progress...';
+
+            // Start timer
+            recordingTimer = setInterval(() => {
+                recordingSeconds++;
+                const minutes = Math.floor(recordingSeconds / 60);
+                const seconds = recordingSeconds % 60;
+                recordingTime.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Auto-stop at 60 seconds
+                if (recordingSeconds >= 60) {
+                    stopRecording();
+                }
+            }, 1000);
+
+        } catch (error) {
+            console.error('Error accessing microphone:', error);
+            recordingStatus.textContent = 'Error: Could not access microphone. Please check permissions.';
+        }
+    }
+
+    function stopRecording() {
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+            mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        }
+        
+        clearInterval(recordingTimer);
+        recordBtn.disabled = false;
+        stopBtn.disabled = true;
+        recordBtn.querySelector('#record-text').textContent = 'Start Recording';
+    }
+
+    // Handle form submission with recorded audio
+    document.querySelector('form').addEventListener('submit', function(e) {
+        if (recordedBlob && !document.getElementById('audio-upload').files.length) {
+            e.preventDefault();
+            
+            // Create a file from the recorded blob
+            const file = new File([recordedBlob], 'recording.wav', { type: 'audio/wav' });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            document.getElementById('audio-upload').files = dataTransfer.files;
+            
+            // Submit the form
+            this.submit();
+        }
     });
 </script>
 {% endblock %}

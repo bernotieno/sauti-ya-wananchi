@@ -65,16 +65,27 @@ class ComplaintForm(forms.ModelForm):
         })
     )
 
+    is_anonymous = forms.BooleanField(
+        required=False,
+        label="Submit Anonymously",
+        widget=forms.CheckboxInput(attrs={
+            'class': 'h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded'
+        }),
+        help_text="Your identity will not be shown publicly"
+    )
+
     class Meta:
         model = Complaint
         fields = [
             'raw_text',
             'category',
+            'urgency',
             'county',
             'audio_file',
             'image_file',
             'officer_name',
             'department_name',
+            'is_anonymous',
         ]
         widgets = {
             'raw_text': forms.Textarea(attrs={
@@ -83,6 +94,9 @@ class ComplaintForm(forms.ModelForm):
                 'placeholder': 'Describe your complaint in detail... (English or Swahili)'
             }),
             'category': forms.Select(attrs={
+                'class': 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent'
+            }),
+            'urgency': forms.Select(attrs={
                 'class': 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent'
             }),
             'audio_file': forms.FileInput(attrs={

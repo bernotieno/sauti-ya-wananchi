@@ -5,22 +5,37 @@ from complaints.models import Complaint
 
 
 @login_required
+def my_complaints(request):
+    """View all complaints by the current user."""
+    user = request.user
+    complaints = Complaint.objects.filter(user=user).order_by('-created_at')
+    
+    context = {
+        'complaints': complaints,
+        'total_count': complaints.count(),
+    }
+    return render(request, 'citizen/my_complaints.html', context)
+
+
+@login_required
 def citizen_dashboard(request):
     """Personal dashboard for logged-in citizens."""
     user = request.user
 
-    # Get user's complaints (for now, we'll show all complaints since we don't have user FK yet)
-    # In a full implementation, you'd filter by user: Complaint.objects.filter(user=user)
-    my_complaints = Complaint.objects.all().order_by('-created_at')[:10]
+    # Get user's complaints (both anonymous and non-anonymous by this user)
+    # For anonymous complaints, we can't show them in user dashboard since user=None
+    # Only show complaints where user is explicitly set
+    my_complaints = Complaint.objects.filter(user=user).order_by('-created_at')[:10]
 
-    # Stats for the user
-    total_complaints = Complaint.objects.count()
-    pending_complaints = Complaint.objects.filter(ai_processed=False).count()
-    verified_complaints = Complaint.objects.filter(is_verified=True).count()
+    # Stats for the user's complaints only
+    user_complaints = Complaint.objects.filter(user=user)
+    total_complaints = user_complaints.count()
+    pending_complaints = user_complaints.filter(ai_processed=False).count()
+    verified_complaints = user_complaints.filter(is_verified=True).count()
 
-    # Category breakdown
+    # Category breakdown for user's complaints
     category_stats = list(
-        Complaint.objects.values('category')
+        user_complaints.values('category')
         .annotate(count=Count('id'))
         .order_by('-count')[:5]
     )

@@ -1,10 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
 
 {% block title %}Complaint Submitted - Sauti ya Wananchi{% endblock %}
 
+{% block page_title %}Success{% endblock %}
+
 {% block content %}
-<div class="min-h-screen bg-gray-50 py-12">
-<div class="max-w-lg mx-auto py-8">
+<div class="max-w-lg mx-auto">
     <div class="bg-white rounded-xl shadow-sm p-8 border border-gray-100 text-center">
         <div class="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
             <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -17,17 +18,15 @@
             Thank you for raising your voice. Your complaint will be processed and added to the public dashboard.
         </p>
 
-        {% if user.is_authenticated %}
-            {% if points %}
-                <div class="bg-green-50 rounded-lg p-4 mb-6">
-                    <p class="text-green-700 font-medium">
-                        +1 Accountability Point
-                    </p>
-                    <p class="text-green-600 text-sm">
-                        Total: {{ points }} points
-                    </p>
-                </div>
-            {% endif %}
+        {% if points %}
+            <div class="bg-green-50 rounded-lg p-4 mb-6">
+                <p class="text-green-700 font-medium">
+                    +1 Accountability Point
+                </p>
+                <p class="text-green-600 text-sm">
+                    Total: {{ points }} points
+                </p>
+            </div>
         {% else %}
             <div class="bg-purple-50 rounded-lg p-4 mb-6">
                 <p class="text-purple-700 font-medium">
@@ -58,15 +57,9 @@
         {% endif %}
 
         <div class="mt-6 pt-6 border-t border-gray-200">
-            {% if user.is_authenticated %}
-                <a href="{% url 'citizen:dashboard' %}" class="text-green-600 hover:text-green-700 text-sm font-medium mr-4">
-                    My Dashboard
-                </a>
-            {% else %}
-                <a href="{% url 'accounts:register' %}" class="text-blue-600 hover:text-blue-700 text-sm font-medium mr-4">
-                    Create Account
-                </a>
-            {% endif %}
+            <a href="{% url 'citizen:my_complaints' %}" class="text-green-600 hover:text-green-700 text-sm font-medium mr-4">
+                My Complaints
+            </a>
             <a href="{% url 'dashboard:home' %}" class="text-green-600 hover:text-green-700 text-sm font-medium">
                 View Public Dashboard
             </a>

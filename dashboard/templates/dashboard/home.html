@@ -1,9 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'dashboard_base.html' %}
 
-{% block title %}Dashboard - Sauti ya Wananchi{% endblock %}
+{% block title %}Public Dashboard - Sauti ya Wananchi{% endblock %}
+
+{% block page_title %}Public Dashboard{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Header Stats -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
@@ -168,7 +169,6 @@
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 
 {% block extra_js %}

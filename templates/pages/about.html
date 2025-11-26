@@ -2,128 +2,239 @@
 
 {% block title %}About Us - Sauti ya Wananchi{% endblock %}
 
+{% load static %}
+
 {% block content %}
-<!-- Hero Section -->
-<section class="bg-gradient-to-br from-blue-700 to-blue-800 text-white py-16 md:py-24">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6">About Sauti ya Wananchi</h1>
-        <p class="text-xl text-blue-100">
+<!-- Hero Section with Background Image -->
+<section class="relative text-white overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+        <img src="{% static 'images/about_background.jpeg' %}" alt="About Sauti ya Wananchi" class="w-full h-full object-cover">
+        <!-- Dark overlay for text readability -->
+        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="absolute top-10 left-10 w-32 h-32 bg-blue-400 rounded-full opacity-20 blur-3xl z-0"></div>
+    <div class="absolute bottom-10 right-10 w-40 h-40 bg-indigo-400 rounded-full opacity-20 blur-3xl z-0"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 text-center">
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+            About Sauti ya Wananchi
+        </h1>
+        <p class="text-xl md:text-2xl text-blue-50 max-w-3xl mx-auto leading-relaxed">
             Empowering Kenyan citizens to report corruption and service failures
-            through technology and collective action.
+            through technology, transparency, and collective action.
         </p>
+        <div class="mt-10 flex flex-wrap justify-center gap-4">
+            <div class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-lg border border-white/20">
+                <div class="text-2xl font-bold">{{ total_complaints|default:"1000" }}+</div>
+                <div class="text-sm text-blue-100">Reports Filed</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-lg border border-white/20">
+                <div class="text-2xl font-bold">47</div>
+                <div class="text-sm text-blue-100">Counties</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm px-6 py-3 rounded-lg border border-white/20">
+                <div class="text-2xl font-bold">24/7</div>
+                <div class="text-sm text-blue-100">Available</div>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- Mission & Vision -->
-<section class="py-16 md:py-24">
+<section class="py-16 md:py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Mission -->
-            <div class="bg-white rounded-xl shadow-sm p-8">
-                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
+            <div class="group relative bg-white rounded-2xl shadow-md p-10 border border-gray-100 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -translate-y-1/2 translate-x-1/2 transition-transform group-hover:scale-150"></div>
+                <div class="relative">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 shadow-lg transform group-hover:rotate-6 transition-transform">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-5">Our Mission</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        To create a transparent and accountable public service system in Kenya by providing
+                        citizens with a safe, accessible platform to report corruption, inefficiency, and
+                        misconduct in government offices.
+                    </p>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Mission</h2>
-                <p class="text-gray-600 leading-relaxed">
-                    To create a transparent and accountable public service system in Kenya by providing
-                    citizens with a safe, accessible platform to report corruption, inefficiency, and
-                    misconduct in government offices.
-                </p>
             </div>
 
             <!-- Vision -->
-            <div class="bg-white rounded-xl shadow-sm p-8">
-                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                    </svg>
+            <div class="group relative bg-white rounded-2xl shadow-md p-10 border border-gray-100 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full -translate-y-1/2 translate-x-1/2 transition-transform group-hover:scale-150"></div>
+                <div class="relative">
+                    <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6 shadow-lg transform group-hover:rotate-6 transition-transform">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-5">Our Vision</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        A Kenya where public services work for everyone, where corruption is exposed
+                        and eliminated, and where every citizen's voice contributes to building
+                        a just and equitable society.
+                    </p>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Vision</h2>
-                <p class="text-gray-600 leading-relaxed">
-                    A Kenya where public services work for everyone, where corruption is exposed
-                    and eliminated, and where every citizen's voice contributes to building
-                    a just and equitable society.
-                </p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- How It Works (Detailed) -->
-<section class="bg-gray-50 py-16 md:py-24">
+<section class="bg-white py-16 md:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How Our Platform Works</h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        <div class="text-center mb-20">
+            <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6">How Our Platform Works</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                 We use artificial intelligence to process and organize citizen reports,
-                making them actionable and accessible.
+                making them actionable and accessible to everyone.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Step 1 -->
-            <div class="bg-white rounded-xl p-8 shadow-sm">
-                <div class="flex items-start">
-                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span class="text-white font-bold">1</span>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Submit Your Report</h3>
-                        <p class="text-gray-600">
-                            Citizens can submit reports via text, voice recordings (up to 60 seconds),
-                            or images. Reports can be submitted anonymously if preferred.
-                        </p>
+        <div class="relative">
+            <!-- Connection Line - Desktop Only -->
+            <div class="hidden md:block absolute top-0 left-1/2 w-1 h-full bg-gradient-to-b from-blue-200 via-blue-300 to-blue-200 transform -translate-x-1/2"></div>
+
+            <div class="space-y-12 md:space-y-16">
+                <!-- Step 1 -->
+                <div class="relative">
+                    <div class="md:grid md:grid-cols-2 md:gap-12 items-center">
+                        <!-- Mobile: Number first, then content -->
+                        <div class="flex items-start gap-4 mb-6 md:hidden">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl flex-shrink-0">
+                                <span class="text-white font-bold text-2xl">1</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Submit Your Report</h3>
+                            </div>
+                        </div>
+                        <!-- Desktop: Text on left, number on right -->
+                        <div class="md:text-right">
+                            <div class="hidden md:block">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Submit Your Report</h3>
+                            </div>
+                            <p class="text-gray-600 text-lg leading-relaxed mb-4">
+                                Citizens can submit reports via text, voice recordings (up to 60 seconds),
+                                or images. Reports can be submitted anonymously if preferred.
+                            </p>
+                            <div class="flex flex-wrap gap-2 md:justify-end">
+                                <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">Text</span>
+                                <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">Voice</span>
+                                <span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium">Image</span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex relative justify-center md:justify-start">
+                            <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl transform hover:rotate-6 transition-transform relative z-10">
+                                <span class="text-white font-bold text-3xl">1</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Step 2 -->
-            <div class="bg-white rounded-xl p-8 shadow-sm">
-                <div class="flex items-start">
-                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span class="text-white font-bold">2</span>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">AI Transcription</h3>
-                        <p class="text-gray-600">
-                            Voice recordings are automatically transcribed using OpenAI Whisper,
-                            supporting both English and Swahili languages.
-                        </p>
+                <!-- Step 2 -->
+                <div class="relative">
+                    <div class="md:grid md:grid-cols-2 md:gap-12 items-center">
+                        <!-- Mobile: Number first, then content -->
+                        <div class="flex items-start gap-4 mb-6 md:hidden">
+                            <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl flex-shrink-0">
+                                <span class="text-white font-bold text-2xl">2</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">AI Transcription</h3>
+                            </div>
+                        </div>
+                        <!-- Desktop: Number on left, text on right -->
+                        <div class="hidden md:flex relative justify-center md:justify-end md:order-1">
+                            <div class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl transform hover:rotate-6 transition-transform relative z-10">
+                                <span class="text-white font-bold text-3xl">2</span>
+                            </div>
+                        </div>
+                        <div class="md:order-2">
+                            <h3 class="hidden md:block text-2xl font-bold text-gray-900 mb-3">AI Transcription</h3>
+                            <p class="text-gray-600 text-lg leading-relaxed mb-4">
+                                Voice recordings are automatically transcribed using OpenAI Whisper,
+                                supporting both English and Swahili languages.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium">English</span>
+                                <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium">Swahili</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Step 3 -->
-            <div class="bg-white rounded-xl p-8 shadow-sm">
-                <div class="flex items-start">
-                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span class="text-white font-bold">3</span>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Smart Categorization</h3>
-                        <p class="text-gray-600">
-                            Claude AI analyzes each report to extract the category, county, urgency level,
-                            involved parties, and generates a clear summary.
-                        </p>
+                <!-- Step 3 -->
+                <div class="relative">
+                    <div class="md:grid md:grid-cols-2 md:gap-12 items-center">
+                        <!-- Mobile: Number first, then content -->
+                        <div class="flex items-start gap-4 mb-6 md:hidden">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl flex-shrink-0">
+                                <span class="text-white font-bold text-2xl">3</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Smart Categorization</h3>
+                            </div>
+                        </div>
+                        <!-- Desktop: Text on left, number on right -->
+                        <div class="md:text-right">
+                            <div class="hidden md:block">
+                                <h3 class="text-2xl font-bold text-gray-900 mb-3">Smart Categorization</h3>
+                            </div>
+                            <p class="text-gray-600 text-lg leading-relaxed mb-4">
+                                AI analyzes each report to extract the category, county, urgency level,
+                                involved parties, and generates a clear summary.
+                            </p>
+                            <div class="flex flex-wrap gap-2 md:justify-end">
+                                <span class="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-sm font-medium">Category</span>
+                                <span class="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-sm font-medium">Urgency</span>
+                                <span class="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-sm font-medium">Summary</span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex relative justify-center md:justify-start">
+                            <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl transform hover:rotate-6 transition-transform relative z-10">
+                                <span class="text-white font-bold text-3xl">3</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Step 4 -->
-            <div class="bg-white rounded-xl p-8 shadow-sm">
-                <div class="flex items-start">
-                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <span class="text-white font-bold">4</span>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Public Dashboard</h3>
-                        <p class="text-gray-600">
-                            Processed reports appear on our public dashboard with analytics, filters,
-                            and visualizations to identify patterns and hotspots.
-                        </p>
+                <!-- Step 4 -->
+                <div class="relative">
+                    <div class="md:grid md:grid-cols-2 md:gap-12 items-center">
+                        <!-- Mobile: Number first, then content -->
+                        <div class="flex items-start gap-4 mb-6 md:hidden">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-xl flex-shrink-0">
+                                <span class="text-white font-bold text-2xl">4</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Public Dashboard</h3>
+                            </div>
+                        </div>
+                        <!-- Desktop: Number on left, text on right -->
+                        <div class="hidden md:flex relative justify-center md:justify-end md:order-1">
+                            <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-xl transform hover:rotate-6 transition-transform relative z-10">
+                                <span class="text-white font-bold text-3xl">4</span>
+                            </div>
+                        </div>
+                        <div class="md:order-2">
+                            <h3 class="hidden md:block text-2xl font-bold text-gray-900 mb-3">Public Dashboard</h3>
+                            <p class="text-gray-600 text-lg leading-relaxed mb-4">
+                                Processed reports appear on our public dashboard with analytics, filters,
+                                and visualizations to identify patterns and hotspots.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-sm font-medium">Analytics</span>
+                                <span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-sm font-medium">Filters</span>
+                                <span class="px-3 py-1 bg-green-50 text-green-700 rounded-full text-sm font-medium">Charts</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,99 +243,143 @@
 </section>
 
 <!-- Impact Stats -->
-<section class="py-16 md:py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Impact</h2>
-            <p class="text-lg text-gray-600">Growing every day with citizen participation</p>
+<section class="relative py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold mb-5">Our Impact</h2>
+            <p class="text-xl text-blue-100 max-w-2xl mx-auto">Growing every day with citizen participation across Kenya</p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">{{ total_complaints|default:"0" }}+</div>
-                <div class="text-gray-600">Total Reports</div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div class="text-center group">
+                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105">
+                    <div class="text-4xl md:text-5xl font-bold mb-3">{{ total_complaints|default:"1000" }}+</div>
+                    <div class="text-blue-100 text-lg">Total Reports</div>
+                </div>
             </div>
-            <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">47</div>
-                <div class="text-gray-600">Counties</div>
+            <div class="text-center group">
+                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105">
+                    <div class="text-4xl md:text-5xl font-bold mb-3">47</div>
+                    <div class="text-blue-100 text-lg">Counties</div>
+                </div>
             </div>
-            <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">7</div>
-                <div class="text-gray-600">Categories</div>
+            <div class="text-center group">
+                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105">
+                    <div class="text-4xl md:text-5xl font-bold mb-3">7</div>
+                    <div class="text-blue-100 text-lg">Categories</div>
+                </div>
             </div>
-            <div class="text-center">
-                <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">24/7</div>
-                <div class="text-gray-600">Availability</div>
+            <div class="text-center group">
+                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105">
+                    <div class="text-4xl md:text-5xl font-bold mb-3">24/7</div>
+                    <div class="text-blue-100 text-lg">Availability</div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Values -->
-<section class="bg-gray-50 py-16 md:py-24">
+<section class="py-16 md:py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Values</h2>
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-5">Our Core Values</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                The principles that guide everything we do
+            </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="text-center">
-                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                    </svg>
+            <div class="group relative bg-white rounded-2xl p-10 shadow-md border border-gray-100 hover:shadow-2xl transition-all duration-300 text-center overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -translate-y-1/2 translate-x-1/2 transition-transform group-hover:scale-150"></div>
+                <div class="relative">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg transform group-hover:rotate-6 group-hover:scale-110 transition-all">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Transparency</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        All reports are publicly visible, creating accountability through openness and collective oversight.
+                    </p>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">Transparency</h3>
-                <p class="text-gray-600">
-                    All reports are publicly visible, creating accountability through openness.
-                </p>
             </div>
 
-            <div class="text-center">
-                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                    </svg>
+            <div class="group relative bg-white rounded-2xl p-10 shadow-md border border-gray-100 hover:shadow-2xl transition-all duration-300 text-center overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-green-50 rounded-full -translate-y-1/2 translate-x-1/2 transition-transform group-hover:scale-150"></div>
+                <div class="relative">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg transform group-hover:rotate-6 group-hover:scale-110 transition-all">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Citizen-Centered</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Built by citizens, for citizens. Your needs and feedback drive our continuous development.
+                    </p>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">Citizen-Centered</h3>
-                <p class="text-gray-600">
-                    Built by citizens, for citizens. Your needs drive our development.
-                </p>
             </div>
 
-            <div class="text-center">
-                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                    </svg>
+            <div class="group relative bg-white rounded-2xl p-10 shadow-md border border-gray-100 hover:shadow-2xl transition-all duration-300 text-center overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-full -translate-y-1/2 translate-x-1/2 transition-transform group-hover:scale-150"></div>
+                <div class="relative">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg transform group-hover:rotate-6 group-hover:scale-110 transition-all">
+                        <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Privacy</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Submit reports anonymously. We protect your identity while amplifying your voice for change.
+                    </p>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">Privacy</h3>
-                <p class="text-gray-600">
-                    Submit reports anonymously. We protect your identity while amplifying your voice.
-                </p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- CTA -->
-<section class="bg-blue-700 text-white py-16">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl font-bold mb-4">Join the Movement</h2>
-        <p class="text-lg text-blue-100 mb-8">
-            Every report brings Kenya one step closer to accountability and good governance.
-        </p>
-        {% if user.is_authenticated %}
-        <a href="{% url 'complaints:submit' %}"
-           class="bg-white text-blue-700 hover:bg-blue-50 font-semibold px-8 py-4 rounded-lg text-lg transition inline-block">
-            Submit Your First Report
-        </a>
-        {% else %}
-        <a href="{% url 'accounts:register' %}"
-           class="bg-white text-blue-700 hover:bg-blue-50 font-semibold px-8 py-4 rounded-lg text-lg transition inline-block">
-            Create an Account
-        </a>
-        {% endif %}
+<section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white py-16 md:py-20 rounded-3xl overflow-hidden shadow-2xl">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute top-0 left-0 w-72 h-72 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+                <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/3 translate-y-1/3"></div>
+            </div>
+
+            <div class="relative max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+                    Join the Movement
+                </h2>
+                <p class="text-lg md:text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Every report brings Kenya one step closer to accountability and good governance.
+                    Be part of the change you want to see.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'complaints:submit' %}"
+                       class="bg-white text-blue-700 hover:bg-blue-50 font-semibold px-8 py-4 rounded-lg text-lg transition transform hover:scale-105 shadow-lg">
+                        Submit Your Report
+                    </a>
+                    {% else %}
+                    <a href="{% url 'accounts:register' %}"
+                       class="bg-white text-blue-700 hover:bg-blue-50 font-semibold px-8 py-4 rounded-lg text-lg transition transform hover:scale-105 shadow-lg">
+                        Create an Account
+                    </a>
+                    <a href="{% url 'accounts:login' %}"
+                       class="border-2 border-white text-white hover:bg-white hover:text-blue-700 font-semibold px-8 py-4 rounded-lg text-lg transition">
+                        Sign In
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}
