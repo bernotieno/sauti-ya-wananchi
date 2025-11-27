@@ -22,8 +22,8 @@ git push origin main
 
 ### 2.2 Get Database Connection Details
 After creation, Render provides:
-- **Internal Database URL**: `postgresql://sauti_ya_wananchi_user:hUJY3soeLLIr0b1NPRewO3ZkIrKRLmHO@dpg-d4k0el8dl3ps73da6lfg-a/sauti_ya_wananchi`
-- **External Database URL**: `postgresql://sauti_ya_wananchi_user:hUJY3soeLLIr0b1NPRewO3ZkIrKRLmHO@dpg-d4k0el8dl3ps73da6lfg-a.oregon-postgres.render.com/sauti_ya_wananchi`
+- **Internal Database URL**: `postgresql://sauti_user:password@dpg-xxx-a/sauti_db`
+- **External Database URL**: `postgresql://sauti_user:password@dpg-xxx-a.oregon-postgres.render.com/sauti_db`
 
 **Important**: Copy the **Internal Database URL** - this is what your web service will use.
 
