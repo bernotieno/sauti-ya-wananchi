@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: sauti-ya-wananchi
+    env: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: starter
+    region: oregon
+    branch: main
+    healthCheckPath: /
+    envVars:
+      - key: DEBUG
+        value: false
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: PORT
+        value: 8000
+    autoDeploy: true
+
+databases:
+  - name: sauti-db
+    databaseName: sauti_db
+    user: sauti_user
+    plan: starter
+    region: oregon

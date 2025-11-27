@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: sauti_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: testpass
+    ports:
+      - "5433:5432"
+
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=test-secret-key-for-local-testing
+      - DATABASE_URL=postgresql://postgres:testpass@db:5432/sauti_test
+      - PORT=8000
+    depends_on:
+      - db
