@@ -67,6 +67,10 @@ class Command(BaseCommand):
             )
             users.append(admin)
             self.stdout.write(self.style.SUCCESS('Created admin user (username: admin, password: admin123)'))
+        else:
+            # Add existing admin to users list
+            admin = User.objects.get(username='admin')
+            users.append(admin)
 
         # Create sample citizen users
         citizen_data = [
@@ -91,8 +95,12 @@ class Command(BaseCommand):
                     accountability_points=random.randint(0, 150)
                 )
                 users.append(user)
+            else:
+                # Add existing user to users list
+                user = User.objects.get(username=username)
+                users.append(user)
 
-        self.stdout.write(self.style.SUCCESS(f'Created {len(users)} users'))
+        self.stdout.write(self.style.SUCCESS(f'Using {len(users)} users for complaints'))
         return users
 
     def create_complaints(self, users):
@@ -239,7 +247,7 @@ class Command(BaseCommand):
         created_count = 0
         for complaint_data in sample_complaints:
             # Assign random user or make anonymous
-            if random.choice([True, False]):
+            if users and random.choice([True, False]):
                 complaint_data['user'] = random.choice(users)
                 complaint_data['is_anonymous'] = False
             else:
