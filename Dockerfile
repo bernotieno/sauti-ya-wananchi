@@ -36,4 +36,4 @@ RUN python manage.py collectstatic --noinput || true
 EXPOSE 8000
 
 # Start command
-CMD ["sh", "-c", "python manage.py migrate && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 config.wsgi:application"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py create_admin && python manage.py seed_data && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 config.wsgi:application"]

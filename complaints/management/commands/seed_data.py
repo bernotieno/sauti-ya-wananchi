@@ -23,6 +23,13 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        import os
+        
+        # Check if seeding is enabled via environment variable
+        if not os.getenv('SEED_DATA', '').lower() in ('true', '1', 'yes'):
+            self.stdout.write(self.style.WARNING('Seeding skipped - SEED_DATA not enabled'))
+            return
+            
         if options['clear']:
             self.stdout.write(self.style.WARNING('Clearing existing data...'))
             Complaint.objects.all().delete()
